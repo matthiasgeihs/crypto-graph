@@ -8,7 +8,7 @@ permissions:
   contents: write
 
 jobs:
-  build-and-deploy:
+  deploy:
     concurrency: ci-${{ github.ref }} # Allows to make multiple deployments in quick succession.
     runs-on: ubuntu-latest
     steps:
