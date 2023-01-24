@@ -22,4 +22,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           branch: gh-pages # The branch deployed to.
-          folder: ./ # The folder to deploy.
+          folder: static/ # The folder to deploy.
