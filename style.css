@@ -1,0 +1,31 @@
+html, body {
+  font: 10pt Helvetica;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+/*  display: flex;
+  flex-direction: column;*/
+}
+
+#mynetwork {
+  width: 100%;
+  height: 100%;
+  /*flex-grow: 1;*/
+}
+
+#mynetwork-legend  {
+  width: 100%;
+  /*max-width: 1024px;*/
+  height: 250px;
+  /*border: 1px solid lightgray;*/
+}
+
+div.vis-tooltip {
+  max-width: 50%;
+  white-space: normal;
+}
+
+p {
+  max-width: 35em;
+}

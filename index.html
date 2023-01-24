@@ -1,0 +1,396 @@
+<!doctype html>
+<html>
+  <head>
+    <title>CryptoGraph - A Graph Visualization of the Relationships between Cryptographic Primitives and Computational Problems</title>
+
+    <!-- <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script> -->
+    <!-- for local testing: -->
+    <script type="text/javascript" src="visjs/vis-network.min.js"></script>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="bib.js"></script>
+    <script type="text/javascript" src="relations.js"></script>
+
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
+    <!-- for local testing: -->
+    <link rel="stylesheet" href="material_icons/material_icons.css">
+
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script> -->
+  </head>
+
+  <body>
+
+    <!-- Title & Menu -->
+
+    <div style="text-align: center; position: absolute; z-index: 1; padding: 5pt; border-radius: 0 0 10pt 0; background-color: lightgray; font-family: AppleGothic;">
+      <span style="font-size: large;"><a href='' style="color: black; text-decoration: none;">CryptoGraph</a> <i class="material-icons" title="open menu" style="cursor: pointer; font-size: large;" id="icon-menu">menu</i></span>
+      <div id="div-menu" style="display: none;">
+        <hr>
+        <i class="material-icons" title="apply filter" style="cursor: pointer;" id="filter-button">search</i>
+        <i class="material-icons" title="reseed graph" style="cursor: pointer;" id="randomize-button">refresh</i>
+        <i class="material-icons" title="show legend" style="cursor: pointer;" id="info-button">info</i>
+      </div>
+    </div>
+
+    <div id='modalframe' style="display: none; position: absolute; top: 50%; left: 50%; margin-top: -7.5em; margin-left: -15em; width: 30em; height: 15em; background-color: white; border: 1px solid black; z-index: 10; padding: 1em; overflow: scroll;">
+      <i class="material-icons" title="close" style="cursor: pointer;" id="button-close">close</i>
+      <div id="modalframe-content">
+
+      </div>
+    </div>
+
+    <div id="mynetwork"></div>
+
+  </body>
+
+  <script type="text/javascript">
+    //cookie helper methods
+    function setCookie(key, value) {
+      document.cookie = key + "=" + value;
+    }
+    function getCookieValue(key) {
+      var tmp = document.cookie.match('(^|[^;]+)\\s*' + key + '\\s*=\\s*([^;]+)');
+      return tmp ? tmp.pop() : '';
+    }
+  </script>
+
+  <script type="text/javascript">
+    function getRandomSeed() {
+      var randomSeedString = getCookieValue('randomSeed');
+      if (randomSeedString.length != 0) {
+        return parseInt(randomSeedString);
+      }
+      return undefined;
+    }
+
+    function setRandomSeed(value) {
+      setCookie('randomSeed', value);
+    }
+
+    function unsetRandomSeed() {
+      document.cookie = 'randomSeed=; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+    }
+
+    var NETWORK_GROUPS = {
+      primitives: {},
+      problems: {
+        color: {
+          border:'purple',
+          background:'pink',
+          hover: {
+            border: 'purple',
+            background: 'lightpink',
+          },
+          highlight: {
+            border: 'purple',
+            background: 'lightpink',
+          },
+        },
+        shape: 'box'
+      },
+    };
+
+    function createNetwork() {
+      var createData = function() {
+        var nodes = [];
+      
+        primitives.forEach(function(value, index, array) {
+          nodes.push({
+            id: value.id,
+            label: value.id,
+            title: value.title,
+            group: 'primitives',
+          });
+        });
+
+        problems.forEach(function(value, index, array) {
+          nodes.push({
+            id: value.id,
+            label: value.id,
+            title: value.title,
+            group: 'problems',
+          });
+        });
+
+        var edges = [];
+
+        var mkEdgeTitle = function(authors, title, journal) {
+          return authors+'.<br><i>'+title+'.</i><br>'+journal+'.'
+        };
+
+        implications.forEach(function(value, index, array) {
+          var ref = getReference(value.refid);
+          edges.push({
+            from: value.from,
+            to: value.to,
+            arrows: 'to',
+            color: {inherit: false},
+            title: ref?mkEdgeTitle(ref.authors, ref.title, ref.journal):undefined,
+            url: ref?ref.url:undefined,
+            connectionType: 'implication',
+          });
+        });
+
+        separations.forEach(function(value, index, array) {
+          var ref = getReference(value.refid);
+          edges.push({
+            from: value.from,
+            to: value.to,
+            arrows: {
+              middle: {enabled: true, type: 'bar', scaleFactor: 0.5},
+              to: {enabled:true},
+            },
+            dashes: true,
+            color: {inherit: false},
+            title: ref?mkEdgeTitle(ref.authors, ref.title, ref.journal):undefined,
+            connectionType: 'separation',
+          });
+        });
+
+        return {nodes: new vis.DataSet(nodes), edges: new vis.DataSet(edges)};
+      };
+
+      var data = createData();
+
+      var groups = NETWORK_GROUPS;
+      var options = {
+        interaction: {hover: true},
+        groups: groups,
+        // physics: {enabled: false},
+        layout: {
+          // improvedLayout: true,
+          randomSeed: getRandomSeed(),
+          // hierarchical: {
+          //   levelSeparation: 50,
+          // },
+        },
+      };
+
+      var container = document.getElementById('mynetwork');
+      var network = new vis.Network(container, data, options);
+      setRandomSeed(network.getSeed());
+
+      network.on("selectEdge", function (params) {
+        if (params.edges.length == 1) {
+          var edge = data.edges.get(params.edges[0]);
+          if (edge.url) {
+            window.open(edge.url, '_blank');
+          }
+        }
+      });
+
+      /* disable node descriptions
+      network.on("selectNode", function (params) {
+        if (params.nodes.length == 1) {
+          var node = data.nodes.get(params.nodes[0]);
+          if (node) {
+            displayModal(function(container){
+              container.innerHTML = '<h3>'+node.title+'</h3>';
+              var desc = getPrimitiveDescription(node.id);
+              if (desc) {
+                container.innerHTML += getPrimitiveDescription(node.id);
+                MathJax.typeset();
+              } else {
+                container.innerHTML += 'description to be added...'
+              }
+            });
+          }
+        }
+      });
+      */
+
+      return network;
+    }
+
+    function createNetworkImpliedBy(nodeid_in) {
+      var network = createNetwork();      
+
+      var getImpliedNodes = function() {
+        var implied = new Set([nodeid_in]);
+        var todo = [nodeid_in];
+        var done = new Set();
+
+        var getConnectedImpliedNodes = function(nodeid) {
+          var edges_connected = network.getConnectedEdges(nodeid);
+          var nodes_connected_implied = [];
+          edges_connected.forEach(function(edgeId){
+            var edge = network.body.data.edges.get(edgeId);
+            if (edge.connectionType == 'implication' && edge.from == nodeid) {
+              nodes_connected_implied.push(edge.to);
+            }
+          });
+          return nodes_connected_implied;
+        };
+
+        while (todo.length > 0) {
+          var nodeid_todo = todo.shift();
+          var connectedImplied = getConnectedImpliedNodes(nodeid_todo);
+          connectedImplied.forEach(function(nodeid_connected){
+            implied.add(nodeid_connected);
+            if (!done.has(nodeid_connected)) {
+              todo.push(nodeid_connected);
+            }
+          });
+          done.add(nodeid_todo);
+        }
+
+        return implied;
+      };
+
+      var nodeids_implied = getImpliedNodes();
+
+      var network_nodeids = network.body.data.nodes.getIds();
+      for (var i = network_nodeids.length - 1; i >= 0; i--) {
+        var nodeid = network_nodeids[i];
+        if (!nodeids_implied.has(nodeid)) {
+          network.body.data.nodes.remove(nodeid);
+        }
+      }
+
+      return network;
+    }
+
+    function createNetworkRestrictedTo(nodeids_in) {
+      var network = createNetwork();
+
+      var network_nodeids = network.body.data.nodes.getIds();
+      for (var i = network_nodeids.length - 1; i >= 0; i--) {
+        var nodeid = network_nodeids[i];
+        if (!nodeids_in.has(nodeid)) {
+          network.body.data.nodes.remove(nodeid);
+        }
+      }
+
+      return network;
+    }
+
+    var network = createNetwork();
+    // var network = createNetworkImpliedBy('OWF');
+    
+    document.getElementById('randomize-button').onclick = function () {
+      network.destroy();
+      unsetRandomSeed();
+      network = createNetwork();
+    };
+
+    document.getElementById('icon-menu').onclick = function () {
+      var divMenu = document.getElementById('div-menu');
+      if (divMenu.style.display == "none") {
+        divMenu.style.display = "initial";
+      } else {
+        divMenu.style.display = "none";
+      }
+    };
+
+    document.getElementById('button-close').onclick = function () {
+      closeModal();
+    };
+
+    function displayModal(callback) {
+      var divElement = document.getElementById('modalframe');
+      divElement.style.display = "initial";
+      callback(document.getElementById('modalframe-content'));
+    }
+
+    function closeModal() {
+      var divModal = document.getElementById('modalframe');
+      divModal.style.display = "none";
+    }
+
+    document.getElementById('info-button').onclick = function () {
+      displayModal(function(container) {
+        container.innerHTML = `
+          <span style="font-size: large; font-weight: bold;">About</span>
+          <p style="text-align: justify;">
+            The graph on this website describes known connections between cryptographic primitives and computational problems.
+            Hovering with your mouse cursor over a connection will show a reference to a work that investigates the relation between the two connected nodes.
+            Clicking on the connection will take you to a website with more details on the respective work.
+            The graphic below explains the different types of connections.
+          </p>
+          <div id="mynetwork-legend"></div>
+          <p><i>This website has been created by <a href="http://www.matthiasgeihs.de/" target="_blank">Matthias Geihs</a>.</i></p>`;
+        createLegend();
+      });
+    };
+
+    document.getElementById('filter-button').onclick = function () {
+      var getAllNodeIds = function() {
+        var nodeids = [];
+        primitives.forEach(prim => nodeids.push(prim.id));
+        problems.forEach(prob => nodeids.push(prob.id));
+        return nodeids;
+      };
+      displayModal(function(container) {
+        container.innerHTML = '<h3>Filter</h3>';
+
+        var appendImplicationsInput = function() {
+          var html = 'Show only nodes implied by ';
+          html += '<select id="select-implied">';
+          var nodeids = getAllNodeIds().sort();
+          nodeids.forEach(nodeid => {
+            html += '<option value="'+nodeid+'">'+nodeid+'</option>';
+          });
+          html += '</select>';
+          html += '<button id="button-filter-implied"><i class="material-icons" title="show only implied nodes" style="font-size: inherit;">search</i></button>';
+          
+          var dom_element = document.createElement('p');
+          dom_element.innerHTML = html;
+          container.appendChild(dom_element);
+
+          document.getElementById('button-filter-implied').onclick = function () {
+            var nodeid_selected = document.getElementById('select-implied').value;
+            network = createNetworkImpliedBy(nodeid_selected);
+            closeModal();
+          };
+        };
+
+        var appendFilterInput = function() {
+          var html = 'Show only selected nodes ';
+          html += '<select multiple id="select-filter-selected">';
+          var nodeids = getAllNodeIds().sort();
+          nodeids.forEach(nodeid => {
+            html += '<option value="'+nodeid+'">'+nodeid+'</option>';
+          });
+          html += '</select>';
+          html += '<button id="button-filter-selected"><i class="material-icons" title="show only selected nodes" style="font-size: inherit;">search</i></button>';
+
+          var dom_element = document.createElement('p');
+          dom_element.innerHTML = html;
+          container.appendChild(dom_element);
+
+          document.getElementById('button-filter-selected').onclick = function () {
+            var getSelected = function() {
+              var options = document.getElementById('select-filter-selected').options;
+              var selected = new Set();
+              options.forEach(option => {
+                if (option.selected) {
+                  selected.add(option.value);
+                }
+              });
+              return selected;
+            };
+            var nodeids_selected = getSelected();
+            network = createNetworkRestrictedTo(nodeids_selected);
+            closeModal();
+          };
+        };
+
+        appendImplicationsInput();
+        appendFilterInput();
+      });
+    };
+
+    /* MathJax definitions
+    (function(){
+      document.body.innerHTML += '<div style="display:none;">'+MATH_DEFINITIONS+'</div>';
+    })();
+    */
+  </script>
+
+  <script type="text/javascript" src="legend.js"></script>
+
+</html>
+
