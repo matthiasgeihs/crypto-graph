@@ -1,4 +1,4 @@
 # crypto-graph
 Visualizing the relations between cryptographic primitives.
 
-![Image of Crypto Graph](cryptograph.png)
+<img src="cryptograph.png" alt="Image of Crypto Graph" width="480">
