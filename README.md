@@ -1,4 +1,4 @@
-# crypto-graph
+# qcrypto-graph
 An interactive visualization of known implications and separations between quantum cryptographic primitives.
 **Contributions are welcome!**
 

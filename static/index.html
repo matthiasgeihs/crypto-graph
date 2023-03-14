@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>CryptoGraph - A Graph Visualization of the Relationships between Cryptographic Primitives and Computational Problems</title>
+    <title>QCryptoGraph - A Graph Visualization of the Relationships between Quantum Cryptographic Primitives</title>
 
     <!-- <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script> -->
     <!-- for local testing: -->
@@ -26,7 +26,7 @@
     <!-- Title & Menu -->
 
     <div style="text-align: center; position: absolute; z-index: 1; padding: 5pt; border-radius: 0 0 10pt 0; background-color: lightgray; font-family: AppleGothic;">
-      <span style="font-size: large;"><a href='' style="color: black; text-decoration: none;">CryptoGraph</a> <i class="material-icons" title="open menu" style="cursor: pointer; font-size: large;" id="icon-menu">menu</i></span>
+      <span style="font-size: large;"><a href='' style="color: black; text-decoration: none;">QCryptoGraph</a> <i class="material-icons" title="open menu" style="cursor: pointer; font-size: large;" id="icon-menu">menu</i></span>
       <div id="div-menu" style="display: none;">
         <hr>
         <i class="material-icons" title="apply filter" style="cursor: pointer;" id="filter-button">search</i>
@@ -305,13 +305,13 @@
         container.innerHTML = `
           <span style="font-size: large; font-weight: bold;">About</span>
           <p style="text-align: justify;">
-            The graph on this website describes known connections between cryptographic primitives and computational problems.
+            The graph on this website describes known connections between quantum cryptographic primitives.
             Hovering with your mouse cursor over a connection will show a reference to a work that investigates the relation between the two connected nodes.
             Clicking on the connection will take you to a website with more details on the respective work.
             The graphic below explains the different types of connections.
           </p>
           <div id="mynetwork-legend"></div>
-          <p><i>This website has been created by <a href="http://www.matthiasgeihs.de/" target="_blank">Matthias Geihs</a>. The source code is available at <a href="https://github.com/matthiasgeihs/crypto-graph" target="_blank">GitHub</a>. Contributions are welcome!</i></p>`;
+          <p><i>The code for this website has been created by <a href="http://www.matthiasgeihs.de/" target="_blank">Matthias Geihs</a>. The source code is available at <a href="https://github.com/matthiasgeihs/crypto-graph" target="_blank">GitHub</a>. Contributions are welcome! The sister quantum project was created by <a href="https://orsattath.wordpress.com/about//" target="_blank">Or Sattath</a>. </i></p>`;
         createLegend();
       });
     };
