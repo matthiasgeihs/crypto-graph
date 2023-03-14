@@ -1,8 +1,8 @@
 # crypto-graph
-An interactive visualization of known implications and separations between cryptographic primitives and number theoretic problems.
+An interactive visualization of known implications and separations between quantum cryptographic primitives.
 **Contributions are welcome!**
 
-View at [matthiasgeihs.github.io/crypto-graph](https://matthiasgeihs.github.io/crypto-graph/).
+View at [sattath.github.io/qcrypto-graph](https://sattath.github.io/qcrypto-graph/).
 
 <p style="text-align: center;"><a href="https://matthiasgeihs.github.io/crypto-graph/" target="_blank"><img src="cryptograph.jpeg" alt="Image of Crypto Graph" width="480"></a></p>
 
