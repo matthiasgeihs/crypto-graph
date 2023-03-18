@@ -1,6 +1,13 @@
 // bibliography
 
 var bibliography = new Map();
+bibliography.set('BBSS23', {
+  authors: 'Behera, Brakerski, Sattath and Shmueli',
+  title: 'Quantum Cryptography with Classical Communication via Proof of Destruction',
+  journal: "Unpublished Manuscript",
+  url: ''
+});
+
 bibliography.set('TRV', {
   authors: '',
   title: 'Trivial',
@@ -51,8 +58,8 @@ bibliography.set('JLS18', {
 bibliography.set('Kre21',{
   authors: 'Kretschmer',
   title: 'Quantum Pseudorandomness and Classical Complexity',
-  journal:"TQC'21",
-  url:'https://drops.dagstuhl.de/opus/volltexte/2021/13997/'
+  journal: "TQC21",
+  url:'https://drops.dagstuhl.de/opus/volltexte/2021/13997'
 });
 
 bibliography.set('MY22b',{

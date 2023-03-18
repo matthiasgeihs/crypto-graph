@@ -82,8 +82,8 @@ PRIM('PRSPD','Pseduorandom States with Proofs of Destruction')
 PRIM('PRSNPD','Pseduorandom States with Nice Proofs of Destruction')
 PRIM('Short Input PRFS', 'Short Input Pseudorandom Function-like States')
 PRIM('Long Input PRFS', 'Long Input Pseudorandom Function-like States')
-PRIM('Short Input PRFSPD', 'Short Input Pseudorandom Function-like States with Proofs of Destruction')
-PRIM('Long Input PRFSPD', 'Long Input Pseudorandom Function-like States with Proofs of Destruction')
+//PRIM('Short Input PRFSPD', 'Short Input Pseudorandom Function-like States with Proofs of Destruction')
+PRIM('PRFSPD', 'Long Input Pseudorandom Function-like States with Proofs of Destruction')
 PRIM('Short Output PRS','Short Output Pseduorandom States')
 PRIM('Short Output PRFS',"Short Output Pseduorandom Function-Like States.\r\n The output state needs to be theta(log(n)) qubits.")
 PRIM('OWSG','One-way States Generator')
@@ -94,21 +94,42 @@ PRIM('EFI','efficiently samplable, statistically far but computationally indisti
 PRIM('Private Quantunm Coins','Private Quantum Coins')
 PRIM('Almost Public Quantunm Coins','Almost Public Quantum Coins')
 
-// Applications
-PRIM('SB-COM','Statictically Binding Computationally Hiding Commitments with Classical Communication')
+// Quantum Applications with classical communication
+PRIM('Classically Verifiable Private Quantum Coins','Classically Verifiable Private Quantum Coins')
+
+// Classical Applications with Quantum Communication
+
 PRIM('SB-QCOM','Statictically Binding Computationally Hiding Quantum Commitments')
 PRIM('OTS with Quantum Public Keys','One-time Signatures with Quantum Public Keys')
-PRIM('QMPC','Quantum MPC for P/poly with dishonest majority')
-PRIM('Quanum Pseudo-encryption','Quantum Pseduo-encryption with quantum ciphers')
-PRIM('Pseudo-encryption','Pseduo-encryption with classical ciphers')
+PRIM('QMPC','Quantum MPC for P/poly with Dishonest Majority')
+PRIM('Quanum Pseudo-encryption','Pseduo-encryption With Quantum Ciphers')
+PRIM('Pseudo-encryption','Pseduo-encryption with Classical Ciphers')
 PRIM('QSKE','Selective CPA Symmetric Encryption with Quantum Ciphers')
 
 PRIM('Quantum Garbled Circuits','Quantum Garbled Circuits for P/poly')
+PRIM('MAC with Quantum Tags','Reusable (Non-CMA) Length Restriged MAC with Quantum Tags')
+
+//Applications with classical communication
+PRIM('CCA2 Sym. Encryption w. Classical Ciphers','CCA2 Symmetric Encryption with Classical Ciphers')
+PRIM('CMA MAC w. Classical Tags','CMA MAC with Classical Tags')
+PRIM('SB-COM','Statictically Binding Computationally Hiding Commitments with Classical Communication')
+PRIM('Garbled Circuits','Classical Garbled Circuits for P/poly')
+PRIM('OTS','One-time Signature with a Classical Pulbic-Key')
+
+
+// PRIM('','')
+// PRIM('','')
+// PRIM('','')
+// PRIM('','')
 
 // relations of primitives
 
 IMPLIES('OWF','PRS','JLS18')
-IMPLIES('OWF','Long Input PRFS','JLS18')
+IMPLIES('OWF','Long Input PRFS','AQY21')
+
+IMPLIES('Long Input PRFS','PRS','TRV')
+
+
 
 IMPLIES('PRS','Private Quantunm Coins','JLS18')
 IMPLIES('Private Quantunm Coins','Almost Public Quantunm Coins','BS20')
@@ -126,8 +147,31 @@ EQUALS('QMPC' ,'EFI','BCQ22')
 IMPLIES('Short Input PRFS','Quanum Pseudo-encryption','AQY21')
 IMPLIES('Quanum Pseudo-encryption','Quantum Garbled Circuits' ,'AQY21')
 IMPLIES('Short Output PRS','SB-COM','AGQY22')
-IMPLIES('Short Output PRFS','Pseudo-encryption','AGQY22')
 IMPLIES('Long Input PRFS','QSKE','AQY21')
+IMPLIES('QSKE','Quanum Pseudo-encryption','TRV')
+
+IMPLIES('Long Input PRFS','MAC with Quantum Tags','AQY21')
+//PRSPD related:
+//--------------
+IMPLIES('OWF','PRSNPD','BBSS23')
+IMPLIES('OWF','PRFSPD','BBSS23')
+
+IMPLIES('PRSNPD','PRSPD','TRV')
+IMPLIES('PRFSPD','PRSPD','TRV')
+
+IMPLIES('PRFSPD','CCA2 Sym. Encryption w. Classical Ciphers','BBSS23')
+IMPLIES('PRFSPD','CMA MAC w. Classical Tags','BBSS23')
+IMPLIES('PRSNPD','SB-COM','BBSS23')
+IMPLIES('CCA2 Sym. Encryption w. Classical Ciphers','Pseudo-encryption','BBSS23')
+IMPLIES('PRSPD','Classically Verifiable Private Quantum Coins','BBSS23')
+IMPLIES('PRSPD','OTS','BBSS23') 
+//Classical Implications:
+IMPLIES('Short Output PRFS','Pseudo-encryption','AGQY22')
+IMPLIES('Pseudo-encryption','Garbled Circuits','BBSS23')
+IMPLIES('CMA MAC w. Classical Tags','MAC with Quantum Tags','TRV')
+IMPLIES('Pseudo-encryption','Quanum Pseudo-encryption','TRV')
+IMPLIES('CCA2 Sym. Encryption w. Classical Ciphers','QSKE')
+//IMPLIES('PRSNPD','SBCH Classical Bit-commitment','BBSS23')
 
 // separations
 BBSEP('PRS','OWF',  'Kre21');
