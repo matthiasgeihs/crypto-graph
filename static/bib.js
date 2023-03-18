@@ -1,12 +1,7 @@
 // bibliography
 
 var bibliography = new Map();
-bibliography.set('BBSS23', {
-  authors: 'Behera, Brakerski, Sattath and Shmueli',
-  title: 'Quantum Cryptography with Classical Communication via Proof of Destruction',
-  journal: "Unpublished Manuscript",
-  url: ''
-});
+
 
 bibliography.set('TRV', {
   authors: '',
@@ -28,12 +23,25 @@ bibliography.set('AQY21', {
   url: 'https://arxiv.org/abs/2112.10020'
 });
 
+bibliography.set('BBSS23', {
+  authors: 'Behera, Brakerski, Sattath and Shmueli',
+  title: 'Quantum Cryptography with Classical Communication via Proof of Destruction',
+  journal: "Unpublished Manuscript",
+  url: ''
+});
 
 bibliography.set('BCQ22', {
   authors: 'Brakerski, Canetti, and Qian',
   title: 'On the computational hardness needed for quantum cryptography',
   journal: "IACR eprint, 2022",
   url: 'https://eprint.iacr.org/2022/1181'
+});
+
+bibliography.set('BMW23', {
+  authors: 'Barooti, Malavolta, and Walter',
+  title: 'A Simple Construction of Quantum Public-Key Encryption from Quantum-Secure One-Way Functions',
+  journal: "IACR eprint, 2023",
+  url: 'https://eprint.iacr.org/2023/306'
 });
 
 
@@ -49,6 +57,25 @@ bibliography.set('BS20b', {
   journal: "CRYPTO'20",
   url: 'https://doi.org/10.1007/978-3-030-56880-1\_15'
 });
+
+bibliography.set('GSV23', {
+  authors: 'Grilo, Sattath and Vu',
+  title: 'Encryption with Quantum Public Keys',
+  journal: "IACR eprint, 2023",
+  url: 'https://eprint.iacr.org/2023/345'
+});
+
+
+
+bibliography.set('HMY22', {
+  authors: 'Hhan, Morimae, and Yamakawa',
+  title: 'From the Hardness of Detecting Superpositions to Cryptography: Quantum Public Key Encryption and Commitments',
+  journal: "IACR eprint, 2022",
+  url: 'https://eprint.iacr.org/2022/1375'
+});
+
+
+
 bibliography.set('JLS18', {
   authors: 'Ji, Liu and Song',
   title: 'Pseudorandom quantum states',
@@ -61,9 +88,16 @@ bibliography.set('Kre21',{
   journal: "TQC21",
   url:'https://drops.dagstuhl.de/opus/volltexte/2021/13997'
 });
+bibliography.set('MY22a',{
+  authors: 'Morimae and Yamakawa',
+  title: ' Quantum Commitments and Signatures Without One-Way Function',
+  journal:"CRYPTO'22",
+  url:'https://link.springer.com/chapter/10.1007/978-3-031-15802-5_10'
+});
+
 
 bibliography.set('MY22b',{
-  authors: ' Morimae and Yamakawa',
+  authors: 'Morimae and Yamakawa',
   title: 'One-Wayness in Quantum Cryptography',
   journal:"IACR eprint, 2022",
   url:'https://eprint.iacr.org/2022/1336'
