@@ -16,11 +16,11 @@ bibliography.set('AGQY22',{
   url:'https://link.springer.com/chapter/10.1007/978-3-031-22318-1_9'
 });
 
-bibliography.set('AQY21', {
+bibliography.set('AQY22', {
   authors: 'Ananth, Qian and Yuen',
   title: 'Cryptography from Pseudorandom Quantum States',
-  journal: "IACR eprint, 2021",
-  url: 'https://arxiv.org/abs/2112.10020'
+  journal: "Crypto'22",
+  url: 'https://link.springer.com/chapter/10.1007/978-3-031-15802-5_8'
 });
 
 bibliography.set('BBSS23', {
@@ -66,14 +66,12 @@ bibliography.set('GSV23', {
 });
 
 
-
 bibliography.set('HMY22', {
   authors: 'Hhan, Morimae, and Yamakawa',
   title: 'From the Hardness of Detecting Superpositions to Cryptography: Quantum Public Key Encryption and Commitments',
   journal: "IACR eprint, 2022",
   url: 'https://eprint.iacr.org/2022/1375'
 });
-
 
 
 bibliography.set('JLS18', {
