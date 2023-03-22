@@ -93,8 +93,8 @@ PRIM('EFI','efficiently samplable, statistically far but computationally indisti
 
 
 // Quantum Applications
-PRIM('Private Quantunm Coins','Private Quantum Coins')
-PRIM('Almost Public Quantunm Coins','Almost Public Quantum Coins')
+PRIM('Private Quantum Coins','Private Quantum Coins')
+PRIM('Almost Public Quantum Coins','Almost Public Quantum Coins')
 
 // Quantum Applications with classical communication
 PRIM('Classically Verifiable Private Quantum Coins','Classically Verifiable Private Quantum Coins')
@@ -138,9 +138,9 @@ IMPLIES('Long Input PRFS','PRS','TRV')
 
 
 
-IMPLIES('PRS','Private Quantunm Coins','JLS18')
-IMPLIES('Private Quantunm Coins','Almost Public Quantunm Coins','BS20')
-IMPLIES('Private Quantunm Coins','OWSG','MY22b')
+IMPLIES('PRS','Private Quantum Coins','JLS18')
+IMPLIES('Private Quantum Coins','Almost Public Quantum Coins','BS20')
+IMPLIES('Private Quantum Coins','OWSG','MY22b')
 IMPLIES('PRS','Short Input PRFS','AQY22')
 IMPLIES('Short Input PRFS','PRS','TRV')
 IMPLIES('OWF', 'Short Output PRS','BS20b')
@@ -181,7 +181,7 @@ IMPLIES('PRSPD','Classically Verifiable Private Quantum Coins','BBSS23')
 IMPLIES('PRSPD','OTS','BBSS23') 
 IMPLIES('PRFSPD' ,'CPA-EO-qPKE','GSV23')
 //Classical Implications:
-IMPLIES('Classically Verifiable Private Quantum Coins','Private Quantunm Coins','TRV')
+IMPLIES('Classically Verifiable Private Quantum Coins','Private Quantum Coins','TRV')
 IMPLIES('Short Output PRFS','Pseudo-encryption','AGQY22')
 IMPLIES('Pseudo-encryption','Garbled Circuits','BBSS23')
 IMPLIES('CMA MAC w. Classical Tags','MAC with Quantum Tags','TRV')
