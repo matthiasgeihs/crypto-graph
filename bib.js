@@ -212,6 +212,13 @@ bibliography.set('katz2010digital', {
   url: 'http://www.springer.com/de/book/9780387277110'
 });
 
+bibliography.set('garg2018trapdoor', {
+  authors: 'Garg and Hajiabadi',
+  title: 'Trapdoor Functions from the Computational Diffie-Hellman Assumption',
+  journal: "CRYPTO'18",
+  url: 'https://link.springer.com/chapter/10.1007/978-3-319-96881-0_13'
+});
+
 function getReference(refid) {
   return bibliography.get(refid);
 }

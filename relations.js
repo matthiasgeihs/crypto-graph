@@ -125,14 +125,13 @@ IMPLIES('LTDF', 'CB-COM', 'unruh2016collapse');
 IMPLIES('LTDF', 'TDF');
 IMPLIES('ITDF', 'TDF');
 IMPLIES('OT', 'KA', 'impagliazzo1989limits');
-// IMPLIES('ITDF', 'TDF'); //don't have the notion of trapdoor functions yet
 
 // relations of problems
 IMPLIES('DLOG', 'PRNG', 'blum1984generate');
 IMPLIES('DLOG', 'CFP', 'damgard1987collision');
 IMPLIES('DDH', 'LTDF', 'peikert2008lossy');
-IMPLIES('DDH', 'DLOG');
-IMPLIES('CDH', 'DDH');
+IMPLIES('CDH', 'DLOG');
+IMPLIES('DDH', 'CDH');
 IMPLIES('FACTOR', 'PRNG');
 IMPLIES('FACTOR', 'CFP', 'goldwasser1988digital');
 IMPLIES('FACTOR', 'CF-TDP', 'goldwasser1988digital');
@@ -146,3 +145,4 @@ IMPLIES('SVP', 'CRHF', 'goldreich2011collision');
 IMPLIES('SVP', 'OWF', 'ajtai1996generating');
 IMPLIES('SVP', 'LWE', 'brakerski2013classical');
 IMPLIES('LWE', 'LTDF', 'peikert2008lossy');
+IMPLIES('CDH', 'TDF', 'garg2018trapdoor');
