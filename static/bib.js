@@ -146,7 +146,7 @@ bibliography.set('goldwasser2008lecture', {
   authors: 'Goldwasser and Bellare',
   title: 'Lecture Notes on Cryptography',
   journal: 'Lecture Notes 2008',
-  url: 'https://cseweb.ucsd.edu/~mihir/papers/gb.html'
+  url: 'https://cseweb.ucsd.edu/~mihir/papers/gb.pdf'
 });
 
 bibliography.set('ajtai1996generating', {
