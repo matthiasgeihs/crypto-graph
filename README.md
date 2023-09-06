@@ -12,3 +12,6 @@ You can serve the page locally, for example, using `npm`.
 ```
 npx serve static
 ```
+
+## QCryptoGraph
+A quantum-version of the CryptoGraph is available at https://github.com/sattath/qcrypto-graph/.
